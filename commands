@@ -1,0 +1,27 @@
+sudo apt-get update
+sudo apt-get install ufw
+
+# Install Mosquitto
+sudo apt-get update
+sudo apt-get install -y mosquitto mosquitto-clients
+
+# Modify configuration file to allow remote connections
+sudo sed -i 's/^bind_address.*/bind_address 0.0.0.0/g' /etc/mosquitto/mosquitto.conf
+
+# Restart Mosquitto service
+sudo systemctl restart mosquitto.service
+
+# Open port 1883 in the firewall
+sudo ufw allow 1883/tcp
+
+
+git clone https://github.com/Olen/solar-monitor.git
+sudo apt-get install bluetooth bluez blueman
+
+git clone https://github.com/hex-in/libscrc
+cd libscrc
+python3 setup.py build
+sudo python3 setup.py install
+
+cd ../solar-monitor
+pip3 install -r requirements.txt
